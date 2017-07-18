@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" class=""
+<% if (htmlWebpackPlugin.files.manifest) { %>
+	manifest="<%= htmlWebpackPlugin.files.manifest %>"
+<% } %>>
+<%= htmlWebpackPlugin.files.webpackManifest %>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<% if (htmlWebpackPlugin.options.mobile) { %>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<% } %>
+	<% if (htmlWebpackPlugin.options.meta) { %>
+		<% for (let key in htmlWebpackPlugin.options.meta) { %>
+			<meta name="<%= key %>" content="<%= htmlWebpackPlugin.options.meta[key] %>" />
+		<% } %>
+	<% } %>
+	<title><%= htmlWebpackPlugin.options.title || 'App' %></title>
+	<% if (htmlWebpackPlugin.options.links) { %>
+		<% for(let link of htmlWebpackPlugin.options.links) { %>
+			<% if (link !== null && typeof link === 'object' ) { %>
+				<link
+					<% for (let key in link) { %>
+						<%= key %>="<%= link[key] %>"
+					<% } %>
+				>
+			<% } else { %>
+				<link href="<%= link %>" rel="stylesheet" />
+			<% } %>
+		<% } %>
+	<% } %>
+	<% for (let css in htmlWebpackPlugin.files.css) { %>
+		<link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet" />
+	<% } %>
+	<% if (htmlWebpackPlugin.options.baseHref) { %>
+		<base href="<%= htmlWebpackPlugin.options.baseHref %>" />
+	<% } %>
+</head>
+<body>
+<% if (htmlWebpackPlugin.options.appMountId) { %>
+	<div id="<%= htmlWebpackPlugin.options.appMountId %>"></div>
+<% } %>
+<% if (htmlWebpackPlugin.options.appMountIds && htmlWebpackPlugin.options.appMountIds.length > 0) { %>
+	<% for (let index in htmlWebpackPlugin.options.appMountIds) { %>
+		<div id="<%= htmlWebpackPlugin.options.appMountIds[index] %>"></div>
+	<% } %>
+<% } %>
+<% if (htmlWebpackPlugin.options.globals) { %>
+	<script>
+		<% for (let varName in htmlWebpackPlugin.options.globals) { %>
+		window['<%= varName %>'] = <%= htmlWebpackPlugin.options.globals[varName] %>;
+		<% } %>
+	</script>
+<% } %>
+<% if (htmlWebpackPlugin.options.window) { %>
+	<script>
+		<% for (let varName in htmlWebpackPlugin.options.window) { %>
+		window['<%= varName %>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
+		<% } %>
+	</script>
+<% } %>
+<% if (htmlWebpackPlugin.files.chunks) { %>
+	<% for (let chunk in htmlWebpackPlugin.files.chunks) { %>
+		<script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+	<% } %>
+<% } %>
+</body>
+</html>

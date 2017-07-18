@@ -1,0 +1,17 @@
+{
+  "plugins": {
+    "postcss-cssnext": {
+      "browsers": [
+        "last 3 version",
+        "ie >= 10"
+      ],
+      "features": {
+        "customProperties": {
+          "variables": {
+            "default-font": "Helvetica, Arial"
+          }
+        }
+      }
+    }
+  }
+}

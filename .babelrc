@@ -1,0 +1,23 @@
+{
+	"presets": [
+		["env", {
+			"cacheDirectory": true,
+			"modules": false,
+			"targets": {
+				"chrome": 50,
+				"ie": 10,
+				"node": 8
+			}
+		}],
+    "stage-0",
+    "babili"
+	],
+  "plugins": [
+    "transform-flow-strip-types",
+    "syntax-jsx",
+    "transform-react-jsx",
+    "transform-react-display-name",
+    "transform-decorators-legacy",
+    "syntax-dynamic-import"
+  ]
+}
