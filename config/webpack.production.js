@@ -1,60 +1,88 @@
+const path = require('path')
 const webpack = require('webpack')
-const ManifestPlugin = require('chunk-manifest-webpack-plugin')
-const BabiliPlugin = require('babili-webpack-plugin')
+// const BabiliPlugin = require('babili-webpack-plugin')
+const HTMLPlugin = require('html-webpack-plugin')
 const config = require('./webpack.core')
-const { publicPath } = require('./')
+
+const {
+  publicPath,
+  rootPath,
+  srcPath,
+  webpackOutputName
+} = require('./')
+
+/**
+ * Entry
+ */
+config
+  .entry('app')
+  .add(path.join(srcPath))
+  .end()
 
 /**
  * Options
  */
+config.target('web')
+config.context(rootPath)
 config.devtool('cheap-module-source-map')
 
 /**
  * Optimizations
  */
-
 config
-  .plugin('named')
-  .use(webpack.NamedModulesPlugin)
-
-config
-  .plugin('common')
+  .plugin('common-chunks')
   .use(webpack.optimize.CommonsChunkPlugin, [{
     name: 'common',
-    filename: 'common.[chunkhash].js',
+    filename: `${webpackOutputName}.js`,
+    chunkFilename: `${webpackOutputName}.js`,
     minChunks (module) {
-      if (module.resource && (/^.*\.css$/).test(module.resource)) return false
-      return module.context &&
-             module.context.indexOf('node_modules') >= 0
+      if (module.resource && (/\.css$/).test(module.resource)) return false
+      return module.context && module.context.indexOf('node_modules') >= 0
     }
   }])
+
+config
+  .plugin('named-modules')
+  .use(webpack.NamedModulesPlugin)
 
 config
   .plugin('module-concat')
   .use(webpack.optimize.ModuleConcatenationPlugin)
 
-config
-  .plugin('hashedModules')
-  .use(webpack.HashedModuleIdsPlugin)
+// config
+//   .plugin('minify')
+//   .use(BabiliPlugin)
 
-config
-  .plugin('minify')
-  .use(BabiliPlugin)
+// config
+//   .plugin('uglify')
+//   .use(webpack.optimize.UglifyJsPlugin, [{
+//     uglifyOptions: {
+//       ie8: false,
+//       ecma: 8
+//     },
+//     compress: {
+//       unused: true,
+//       dead_code: true
+//     }
+//   }])
 
+/**
+ * Plugins
+ */
 config
-  .plugin('uglify')
-  .use(webpack.optimize.UglifyJsPlugin, [{
-    compress: {
-      unused: true,
-      dead_code: true
-    }
+  .plugin('html')
+  .use(HTMLPlugin, [{
+    appMountId: 'root',
+    baseHref: '/',
+    filename: 'index.html',
+    path: rootPath,
+    template: './src/static/index.js',
+    faviconUrl: '/favicon.ico'
   }])
 
 config
-  .plugin('manifest')
-  .init(() => new ManifestPlugin({
-    inlineManifest: true
-  }))
+  .plugin('no-emit-errors')
+  .use(webpack.NoEmitOnErrorsPlugin)
 
 /**
  * Output
@@ -62,7 +90,11 @@ config
 config
   .output
   .path(publicPath)
-  .filename('[name].[chunkhash].js')
-  .end()
+  .filename(`${webpackOutputName}.js`)
+  .chunkFilename(`${webpackOutputName}.js`)
+
+config
+  .performance
+  .hints('warning')
 
 module.exports = config

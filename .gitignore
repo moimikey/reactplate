@@ -1,4 +1,7 @@
-public
-node_modules
+public/
+node_modules/
 *.log*
 *.cache*
+.vscode/
+coverage/
+config/manifest.json

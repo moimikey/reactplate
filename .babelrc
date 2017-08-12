@@ -1,23 +1,50 @@
 {
+  "comments": false,
 	"presets": [
 		["env", {
 			"cacheDirectory": true,
-			"modules": false,
+      "debug": false,
+      "modules": false,
+      "useBuiltIns": false,
 			"targets": {
-				"chrome": 50,
-				"ie": 10,
-				"node": 8
-			}
+        "node": "6",
+        "browsers": [
+          "> 1%",
+          "last 2 versions",
+          "safari >= 7"
+        ]
+      }
 		}],
     "stage-0",
     "babili"
 	],
   "plugins": [
-    "transform-flow-strip-types",
+    "syntax-dynamic-import",
     "syntax-jsx",
-    "transform-react-jsx",
+    "transform-decorators",
+    "transform-flow-strip-types",
     "transform-react-display-name",
-    "transform-decorators-legacy",
-    "syntax-dynamic-import"
-  ]
+    "transform-react-jsx"
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "dynamic-import-node",
+        "syntax-jsx",
+        "transform-decorators",
+        "transform-es2015-modules-commonjs",
+        "transform-react-jsx"
+      ]
+    },
+    "cli": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "node": "current"
+          }
+        }]
+      ],
+      "plugins": []
+    }
+  }
 }

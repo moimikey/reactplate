@@ -1,0 +1,13 @@
+[include]
+./src
+
+[ignore]
+.*/node_modules/fbjs/.*
+.*/node_modules/radium/.*
+
+[options]
+emoji=true
+esproposal.decorators=ignore
+esproposal.export_star_as=enable
+experimental.const_params=true
+suppress_type=$TODO

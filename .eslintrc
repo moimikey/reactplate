@@ -1,0 +1,12 @@
+{
+  "globals": {
+    "Component": true,
+    "React": true,
+    "ReactDOM": true,
+    "expect": true,
+    "test": true,
+    "log": true,
+    "import": true,
+    "fetch": true
+  }
+}
