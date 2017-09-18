@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-// const BabiliPlugin = require('babili-webpack-plugin')
+const BabiliPlugin = require('babili-webpack-plugin')
 const HTMLPlugin = require('html-webpack-plugin')
 const config = require('./webpack.core')
 
@@ -49,22 +49,22 @@ config
   .plugin('module-concat')
   .use(webpack.optimize.ModuleConcatenationPlugin)
 
-// config
-//   .plugin('minify')
-//   .use(BabiliPlugin)
+config
+  .plugin('minify')
+  .use(BabiliPlugin)
 
-// config
-//   .plugin('uglify')
-//   .use(webpack.optimize.UglifyJsPlugin, [{
-//     uglifyOptions: {
-//       ie8: false,
-//       ecma: 8
-//     },
-//     compress: {
-//       unused: true,
-//       dead_code: true
-//     }
-//   }])
+config
+  .plugin('uglify')
+  .use(webpack.optimize.UglifyJsPlugin, [{
+    uglifyOptions: {
+      ie8: false,
+      ecma: 8
+    },
+    compress: {
+      unused: true,
+      dead_code: true
+    }
+  }])
 
 /**
  * Plugins

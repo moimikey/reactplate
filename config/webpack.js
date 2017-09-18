@@ -18,7 +18,7 @@ if (isDll) {
 } else if (isProduction) {
   module.exports = require('./webpack.production').toConfig()
 } else {
-  throw Error('NODE_ENV is not set.')
+  throw new Error('NODE_ENV is not set.')
 }
 
 log(`Using ${chalk.cyan(NODE_ENV)} webpack config`)

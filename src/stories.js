@@ -1,2 +1,6 @@
-const requireC = require.context('./modules', true, /\.story\.js$/)
-requireC.keys().forEach((filename) => requireC(filename))
+const r = require.context('./modules', true, /\.story\.js$/)
+const stories = r.keys()
+
+stories.forEach(r)
+
+module.exports = stories
