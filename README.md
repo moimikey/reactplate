@@ -10,29 +10,29 @@
 1. serve static content with [express](https://npmjs.com/package/express)
 1. type check with [flow](https://npmjs.com/package/flow-bin)
 1. optimize static server with [helmet](https://npmjs.com/package/helmet)
+1. and [hpp](https://npmjs.com/package/hpp)
 1. access arrays better with [idx](https://npmjs.com/package/idx)
 1. code-split with [import()](https://npmjs.com/package/babel-plugin-syntax-dynamic-import)
 1. test with [jest](https://npmjs.com/package/jest)
 1. universal logging with [logdown](https://npmjs.com/package/logdown)
 1. css transforms with [postcss](https://npmjs.com/package/postcss-cssnext)
-1. interactively develop with [react-storybook](https://npmjs.com/package/@storybook/react)
 1. build interfaces with [react](https://npmjs.com/package/react)
 1. use cutting edge ecmascript with [stage-0](https://npmjs.com/package/babel-preset-stage-0)
 1. lint with [standard](https://npmjs.com/package/standard)
+1. interactively develop with [storybook](https://npmjs.com/package/@storybook/react)
 1. bundle and load modules with [webpack 3](https://npmjs.com/package/webpack)
 1. seamlessly configure webpack with [webpack-chain](https://npmjs.com/package/webpack-chain)
 
 # webpack optimizations
 - Dead and unused code elimination (UglifyJS)
 - ES2015 minimization/minification (Babili)
-- Increased browser and network security (Helmet, HPP)
-- Inline critical path CSS + Gzip
 - Multi-optional caching (DllPlugin, CommonsChunkPlugin)
 - On-demand polyfilling (dynamic `import`)
 
 # extras
 - Travis CI + Yarn + Greenkeeper
-- Reac
+- Inline critical path CSS + Gzip
+- Healthcheck routes (/__gtg, /__health)
 
 # how-to
 

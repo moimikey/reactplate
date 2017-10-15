@@ -23,13 +23,14 @@ const indexFile = path.join(publicPath, 'index.html')
 app.use(compression())
 app.use(hpp())
 app.use(helmet())
-app.use(express.static(publicPath))
+
 app.use(expressWs({
   healthCheck: health.checks(),
   goodToGoTest: health.gtg(),
   manifestPath: packageJSON
 }))
 
+app.use(express.static(publicPath))
 app.get('*', (req, res) => res.sendFile(indexFile))
 
 export default app

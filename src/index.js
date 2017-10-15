@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import log from './util/logger'
-import App from './modules/app'
+import App from './pages/default'
 
 import('./polyfill').then(polyfill => {
   polyfill.default()

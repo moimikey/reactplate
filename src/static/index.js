@@ -1,7 +1,7 @@
 import React, { createElement } from 'react'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import cxs from 'cxs'
-import App from '../modules/app'
+import App from '..'
 
 const HTML = ({ options, files }) => {
   const {
@@ -11,12 +11,12 @@ const HTML = ({ options, files }) => {
     title
   } = options
 
-  const __html = renderToString(createElement(App))
+  const __html = renderToStaticMarkup(createElement(App))
   const __criticalCss = [
     require('materialize-css/dist/css/materialize.css'),
     require('../critical.raw.css')
   ].join('\n')
-  const __modulesCss = cxs.css
+  const __modulesCss = cxs.css()
 
   return (
     <html lang='en'>
@@ -28,6 +28,7 @@ const HTML = ({ options, files }) => {
         { faviconUrl && <link rel='shortcut icon' href={faviconUrl} /> }
         <link rel='stylesheet' href='//fonts.googleapis.com/icon?family=Material+Icons' />
         { files.css.map((css, i) => <link key={i} href={files.css[css]} rel='preload' as='style' onload="this.rel='stylesheet'" />) }
+        { files.css.map((css, i) => <noscript><link href={files.css[css]} rel='stylesheet' /></noscript>) }
         { baseHref && <base href={baseHref} /> }
         { __criticalCss && <style>{ __criticalCss }</style> }
         { __modulesCss && <style>{ __modulesCss }</style> }
@@ -40,7 +41,7 @@ const HTML = ({ options, files }) => {
   )
 }
 
-const renderDocumentToString = props => `<!doctype html>${renderToStaticMarkup(<HTML {...props} />)}`
+const renderDocumentToString = props => `<!doctype html>${renderToString(<HTML {...props} />)}`
 
 export default function (props) {
   cxs.reset()

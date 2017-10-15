@@ -42,29 +42,31 @@ config
   }])
 
 config
-  .plugin('named-modules')
-  .use(webpack.NamedModulesPlugin)
+  .plugin('hashed-modules')
+  .use(webpack.HashedModuleIdsPlugin)
 
 config
   .plugin('module-concat')
   .use(webpack.optimize.ModuleConcatenationPlugin)
 
-config
-  .plugin('minify')
-  .use(BabiliPlugin)
+if (!process.env.WATCH) {
+  config
+    .plugin('minify')
+    .use(BabiliPlugin)
 
-config
-  .plugin('uglify')
-  .use(webpack.optimize.UglifyJsPlugin, [{
-    uglifyOptions: {
-      ie8: false,
-      ecma: 8
-    },
-    compress: {
-      unused: true,
-      dead_code: true
-    }
-  }])
+  config
+    .plugin('uglify')
+    .use(webpack.optimize.UglifyJsPlugin, [{
+      uglifyOptions: {
+        ie8: false,
+        ecma: 8
+      },
+      compress: {
+        unused: true,
+        dead_code: true
+      }
+    }])
+}
 
 /**
  * Plugins

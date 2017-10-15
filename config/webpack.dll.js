@@ -38,6 +38,10 @@ config
   .use(BabiliPlugin)
 
 config
+  .plugin('hashed-modules')
+  .use(webpack.HashedModuleIdsPlugin)
+
+config
   .plugin('uglify')
   .use(webpack.optimize.UglifyJsPlugin, [{
     uglifyOptions: {
