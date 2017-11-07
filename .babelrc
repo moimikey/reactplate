@@ -5,9 +5,9 @@
 			"cacheDirectory": true,
       "debug": false,
       "modules": false,
-      "useBuiltIns": false,
+      "useBuiltIns": true,
 			"targets": {
-        "node": "6",
+        "node": "current",
         "browsers": [
           "> 1%",
           "last 2 versions",

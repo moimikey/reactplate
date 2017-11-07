@@ -13,6 +13,11 @@ function Polyfill () {
       .then(() => log('Loaded fetch polyfill'))
   }
 
+  if (!global.requestAnimationFrame) {
+    import('raf/polyfill')
+      .then(() => log('Loaded requestAnimationFrame polyfill'))
+  }
+
   log('polyfill', 'done')
 }
 

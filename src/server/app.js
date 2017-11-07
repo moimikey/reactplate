@@ -7,9 +7,7 @@ import HealthCheck from '@financial-times/health-check'
 import expressWs from '@financial-times/express-web-service'
 
 import { checks } from '../../config/server'
-import {
-  packageJSON
-} from '../../config'
+import { packageJSON } from '../../config'
 
 const health = new HealthCheck({
   checks

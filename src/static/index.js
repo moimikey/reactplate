@@ -1,14 +1,13 @@
 import React, { createElement } from 'react'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import cxs from 'cxs'
-import App from '..'
+import App from '../index'
 
 const HTML = ({ options, files }) => {
   const {
     appMountId,
     baseHref,
-    faviconUrl,
-    title
+    faviconUrl
   } = options
 
   const __html = renderToStaticMarkup(createElement(App))
@@ -19,12 +18,11 @@ const HTML = ({ options, files }) => {
   const __modulesCss = cxs.css()
 
   return (
-    <html lang='en'>
+    <html>
       <head>
         <meta charSet='utf-8' />
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <title>{title}</title>
         { faviconUrl && <link rel='shortcut icon' href={faviconUrl} /> }
         <link rel='stylesheet' href='//fonts.googleapis.com/icon?family=Material+Icons' />
         { files.css.map((css, i) => <link key={i} href={files.css[css]} rel='preload' as='style' onload="this.rel='stylesheet'" />) }
@@ -41,7 +39,8 @@ const HTML = ({ options, files }) => {
   )
 }
 
-const renderDocumentToString = props => `<!doctype html>${renderToString(<HTML {...props} />)}`
+const renderDocumentToString = props =>
+  `<!doctype html>${renderToString(<HTML {...props} />)}`
 
 export default function (props) {
   cxs.reset()

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Row, Col } from 'react-materialize'
 import { compose, withState } from 'recompose'
 import { withLifecycle } from '../../hoc'

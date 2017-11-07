@@ -13,4 +13,5 @@ install:
   - yarn --ignore-engines
 script:
   - yarn lint
-  - yarn test:all
+  - yarn test
+  - codecov

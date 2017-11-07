@@ -11,24 +11,36 @@
   "private": true,
   "standard": {
     "globals": [
-      "test",
-      "expect",
       "React",
-      "log",
+      "ReactDOM",
+      "expect",
+      "fetch",
       "import",
-      "fetch"
+      "log",
+      "mount",
+      "render",
+      "shallow",
+      "test"
     ],
     "parser": "babel-eslint"
   },
   "jest": {
+    "verbose": true,
     "testRegex": "(.*\\.spec)\\.js$",
     "moduleNameMapper": {
       "\\.css$": "identity-obj-proxy"
-    }
+    },
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
+    "setupFiles": [
+      "raf/polyfill",
+      "isomorphic-fetch"
+    ],
+    "setupTestFrameworkScriptFile": "./src/setupJest.js"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production DEBUG=*,-babel*,-eslint* NODE_DEBUG=* npm-run-all -s clean lint compile size",
-    "build:dll": "cross-env NODE_ENV=dll DEBUG=*,-babel*,-eslint* NODE_DEBUG=* npm-run-all -s clean:dll compile",
+    "build": "cross-env NODE_ENV=production DEBUG=*,-babel*,-eslint* npm-run-all -s clean lint compile size",
+    "build:dll": "cross-env NODE_ENV=dll DEBUG=*,-babel*,-eslint* npm-run-all -s clean:dll compile",
     "build:watch": "cross-env WATCH=true nodemon -w src --exec npm-run-all build",
     "clean": "rimraf \"public/!(vendor*).{js,css,map,md,json,html}\"",
     "clean:dll": "rimraf config/manifest.json public/vendor_*",
@@ -39,11 +51,11 @@
     "lint:fix": "standard --env development --verbose --fix \"config/**/*.js\" \"src/**/*.js\" | snazzy",
     "postinstall": "yarn clean",
     "size": "dist-size -e js public",
-    "start": "cross-env NODE_ENV=development NODE_DEBUG=* DEBUG=*,-babel*,-eslint* nodemon -w config --exec start-storybook -p 8001 -c config/storybook",
-    "start:server": "cross-env NODE_ENV=production NODE_DEBUG=* DEBUG=*,-babel*,-eslint* PORT=8000 nodemon --watch src/server --exec babel-node --presets env ./src/server",
-    "test": "jest -o --coverage",
-    "test:all": "jest --coverage",
-    "test:watch": "jest --notify --watch"
+    "start": "cross-env NODE_ENV=development DEBUG=*,-babel*,-eslint* nodemon -w config --exec start-storybook -p 8001 -c config/storybook",
+    "start:server": "cross-env NODE_ENV=production DEBUG=*,-babel*,-eslint* PORT=8000 nodemon --watch src/server --exec babel-node --presets env ./src/server",
+    "test": "cross-env DEBUG=*,-babel* NODE_ENV=test jest --coverage",
+    "test:staged": "cross-env DEBUG=*,-babel* NODE_ENV=test jest -o --coverage",
+    "test:watch": "cross-env DEBUG=*,-babel* NODE_ENV=test jest --notify --watch"
   },
   "devDependencies": {
     "@financial-times/express-web-service": "^3.3.1",
@@ -61,6 +73,7 @@
     "babel-plugin-react-css-modules": "^3.3.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators": "^6.24.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
@@ -73,12 +86,15 @@
     "babili-webpack-plugin": "^0.1.2",
     "chalk": "^2.1.0",
     "chunk-manifest-webpack-plugin": "^1.1.2",
+    "codecov": "^3.0.0",
     "compression": "^1.7.0",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "cssnano": "^3.10.0",
     "dist-size": "^0.3.1",
-    "enzyme": "^2.9.1",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-16": "^1.0.4",
+    "enzyme-to-json": "^3.2.1",
     "eslint-plugin-react": "^7.4.0",
     "express": "^4.15.4",
     "flow-bin": "^0.54.1",
@@ -90,6 +106,7 @@
     "html-webpack-plugin": "^2.30.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^21.0.2",
+    "jest-enzyme": "^4.0.1",
     "logdown": "^3.1.0",
     "nodemon": "^1.12.0",
     "npm-run-all": "^4.1.1",
@@ -97,6 +114,8 @@
     "postcss-cssnext": "^3.0.2",
     "postcss-loader": "^2.0.6",
     "raw-loader": "^0.5.1",
+    "react-addons-test-utils": "^15.6.2",
+    "react-helmet": "^5.2.0",
     "react-test-renderer": "^15.6.1",
     "rimraf": "^2.6.1",
     "snazzy": "^7.0.0",
@@ -105,7 +124,8 @@
     "style-loader": "^0.18.2",
     "webpack": "^3.5.6",
     "webpack-chain": "^4.0.0",
-    "webpack-messages": "^1.0.1"
+    "webpack-messages": "^1.0.1",
+    "workbox-webpack-plugin": "^2.1.0"
   },
   "dependencies": {
     "@hocs/debounce-handler": "^0.2.1",
@@ -131,8 +151,9 @@
     "isomorphic-fetch": "^2.2.1",
     "materialize-css": "^0.100.2",
     "normalize.css": "^7.0.0",
-    "react": "16",
-    "react-dom": "16",
+    "raf": "^3.4.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-materialize": "^1.0.11",
     "recompose": "^0.25.0",
     "universal-router": "^4.0.0"

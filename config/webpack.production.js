@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const BabiliPlugin = require('babili-webpack-plugin')
 const HTMLPlugin = require('html-webpack-plugin')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 const config = require('./webpack.core')
 
 const {
@@ -51,10 +52,6 @@ config
 
 if (!process.env.WATCH) {
   config
-    .plugin('minify')
-    .use(BabiliPlugin)
-
-  config
     .plugin('uglify')
     .use(webpack.optimize.UglifyJsPlugin, [{
       uglifyOptions: {
@@ -66,6 +63,10 @@ if (!process.env.WATCH) {
         dead_code: true
       }
     }])
+
+  config
+    .plugin('minify')
+    .use(BabiliPlugin)
 }
 
 /**
@@ -85,6 +86,14 @@ config
 config
   .plugin('no-emit-errors')
   .use(webpack.NoEmitOnErrorsPlugin)
+
+config
+  .plugin('workbox-sw')
+  .use(WorkboxPlugin, [{
+    globDirectory: publicPath,
+    globPatterns: ['**/*.{html,js,css}'],
+    swDest: path.join(publicPath, 'sw.js')
+  }])
 
 /**
  * Output
