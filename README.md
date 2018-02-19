@@ -20,7 +20,7 @@
 1. use cutting edge ecmascript with [stage-0](https://npmjs.com/package/babel-preset-stage-0)
 1. lint with [standard](https://npmjs.com/package/standard)
 1. interactively develop with [storybook](https://npmjs.com/package/@storybook/react)
-1. bundle and load modules with [webpack 3](https://npmjs.com/package/webpack)
+1. bundle and load modules with [webpack](https://npmjs.com/package/webpack)
 1. seamlessly configure webpack with [webpack-chain](https://npmjs.com/package/webpack-chain)
 
 # webpack optimizations
@@ -32,13 +32,13 @@
 # extras
 - Travis CI + Yarn + Greenkeeper
 - Inline critical path CSS + Gzip
-- Healthcheck routes (/__gtg, /__health)
+- Healthcheck routes (`/__gtg`, `/__health`)
 
 # how-to
 
 ## install deps
 ```
-yarn --ignore-engines
+yarn install
 ```
 
 ## create a dll bundle

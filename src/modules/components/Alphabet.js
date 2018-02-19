@@ -5,7 +5,7 @@ type Props = {
 }
 
 const Alphabet = (props: Props) => (
-  <a href='#!'>
+  <a href='javascript:'>
     { props.uppercase
       ? String.fromCharCode(...Array(91).keys()).slice(65)
       : String.fromCharCode(...Array(123).keys()).slice(97) }

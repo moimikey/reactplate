@@ -1,8 +1,5 @@
 import * as React from 'react'
 import { Row, Col } from 'react-materialize'
-import { compose, withState } from 'recompose'
-import { withLifecycle } from '../../hoc'
-import log from '../../util/logger'
 
 const App = ({ isLoading }) => (
   <div className='App'>
@@ -21,14 +18,4 @@ const App = ({ isLoading }) => (
   </div>
 )
 
-export default compose(
-  withState('isLoading', 'setLoading', false),
-  withLifecycle({
-    onDidMount ({ setLoading }) {
-      setLoading(true, () => setTimeout(() => setLoading(false), 500))
-    },
-    onWillReceiveProps (props, nextProps) {
-      log('component(App):isLoading', `${props.isLoading} → ${nextProps.isLoading}`)
-    }
-  })
-)(App)
+export default App

@@ -1,7 +1,7 @@
-import React, { createElement } from 'react'
+import * as React from 'react'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import cxs from 'cxs'
-import App from '../index'
+import App from '../..'
 
 const HTML = ({ options, files }) => {
   const {
@@ -10,10 +10,10 @@ const HTML = ({ options, files }) => {
     faviconUrl
   } = options
 
-  const __html = renderToStaticMarkup(createElement(App))
+  const __html = renderToStaticMarkup(React.createElement(App))
   const __criticalCss = [
     require('materialize-css/dist/css/materialize.css'),
-    require('../critical.raw.css')
+    require('../../critical.raw.css')
   ].join('\n')
   const __modulesCss = cxs.css()
 

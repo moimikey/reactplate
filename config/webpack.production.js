@@ -79,7 +79,7 @@ config
     baseHref: '/',
     filename: 'index.html',
     path: rootPath,
-    template: './src/static/index.js',
+    template: './src/server/static/index.js',
     faviconUrl: '/favicon.ico'
   }])
 

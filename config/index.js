@@ -17,9 +17,9 @@ const configPath = path.join(rootPath, 'config')
 /**
  * Files
  */
-const dllVendorFile = path.join(publicPath, 'vendor_*')
+// const dllVendorFile = path.join(publicPath, 'vendor_*')
 const faviconFile = path.join(publicPath, 'favicon.ico')
-const manifestFile = path.join(configPath, 'manifest.json')
+// const manifestFile = path.join(configPath, 'manifest.json')
 const packageJSON = require(path.resolve('package.json'))
 
 /**
@@ -55,9 +55,9 @@ module.exports = {
   NODE_DEBUG,
   NODE_ENV,
   configPath,
-  dllVendorFile,
+  // dllVendorFile,
   faviconFile,
-  manifestFile,
+  // manifestFile,
   packageJSON,
   postCssConfig,
   publicPath,

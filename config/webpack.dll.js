@@ -5,8 +5,8 @@ const config = require('./webpack.core')
 const {
   publicPath,
   webpackDependencies,
-  rootPath,
-  manifestFile
+  rootPath
+  // manifestFile
 } = require('./')
 
 /**
@@ -26,12 +26,12 @@ config.devtool('inline-source-map')
 /**
  * Plugins
  */
-config
-  .plugin('dll')
-  .use(webpack.DllPlugin, [{
-    name: 'vendor_[hash]',
-    path: manifestFile
-  }])
+// config
+//   .plugin('dll')
+//   .use(webpack.DllPlugin, [{
+//     name: 'vendor_[hash]',
+//     path: manifestFile
+//   }])
 
 config
   .plugin('minify')

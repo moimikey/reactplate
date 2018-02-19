@@ -1,4 +1,4 @@
-import Enzyme, { shallow, render, mount } from 'enzyme'
+import { configure, shallow, render, mount } from 'enzyme'
 import React16Adapter from 'enzyme-adapter-react-16'
 import toJson from 'enzyme-to-json'
 import 'jest-enzyme'
@@ -12,6 +12,6 @@ console.error = message => {
   throw new Error(message)
 }
 
-Enzyme.configure({
+configure({
   adapter: new React16Adapter()
 })

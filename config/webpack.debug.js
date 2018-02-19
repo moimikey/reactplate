@@ -6,19 +6,19 @@ const config = require('./webpack.core')
  * add webpack configuration to storybook
  */
 
-const {
-  manifestFile
-} = require('./')
+// const {
+//   manifestFile
+// } = require('./')
 
 config
   .plugin('named-modules')
   .use(webpack.NamedModulesPlugin)
 
-config
-  .plugin('dll')
-  .use(webpack.DllReferencePlugin, [{
-    manifest: require(manifestFile),
-    context: __dirname
-  }])
+// config
+//   .plugin('dll')
+//   .use(webpack.DllReferencePlugin, [{
+//     manifest: require(manifestFile),
+//     context: __dirname
+//   }])
 
 module.exports = config
