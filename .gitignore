@@ -3,5 +3,3 @@ node_modules/
 *.log*
 *.cache*
 .vscode/
-coverage/
-config/manifest.json

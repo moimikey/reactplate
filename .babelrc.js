@@ -4,7 +4,6 @@ const plugins = (env) => ({
     'syntax-dynamic-import',
     'syntax-jsx',
     'transform-decorators',
-    'transform-flow-strip-types',
     'transform-react-display-name',
     'transform-react-jsx'
   ],
@@ -12,7 +11,6 @@ const plugins = (env) => ({
     'syntax-dynamic-import',
     'syntax-jsx',
     'transform-decorators',
-    'transform-flow-strip-types',
     'transform-react-display-name',
     'transform-react-jsx'
   ],
@@ -20,7 +18,6 @@ const plugins = (env) => ({
     'syntax-jsx',
     'transform-decorators',
     'transform-es2015-modules-commonjs',
-    'transform-flow-strip-types',
     'transform-react-jsx'
   ]
 }[env || 'default'])

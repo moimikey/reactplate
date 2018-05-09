@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
-import cxs from 'cxs'
 import App from '../..'
 
 const HTML = ({ options, files }) => {
@@ -11,11 +10,6 @@ const HTML = ({ options, files }) => {
   } = options
 
   const __html = renderToStaticMarkup(React.createElement(App))
-  const __criticalCss = [
-    require('materialize-css/dist/css/materialize.css'),
-    require('../../critical.raw.css')
-  ].join('\n')
-  const __modulesCss = cxs.css()
 
   return (
     <html>
@@ -24,12 +18,7 @@ const HTML = ({ options, files }) => {
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         { faviconUrl && <link rel='shortcut icon' href={faviconUrl} /> }
-        <link rel='stylesheet' href='//fonts.googleapis.com/icon?family=Material+Icons' />
-        { files.css.map((css, i) => <link key={i} href={files.css[css]} rel='preload' as='style' onload="this.rel='stylesheet'" />) }
-        { files.css.map((css, i) => <noscript><link href={files.css[css]} rel='stylesheet' /></noscript>) }
         { baseHref && <base href={baseHref} /> }
-        { __criticalCss && <style>{ __criticalCss }</style> }
-        { __modulesCss && <style>{ __modulesCss }</style> }
       </head>
       <body>
         <div id={appMountId} dangerouslySetInnerHTML={{ __html }} />
@@ -43,6 +32,5 @@ const renderDocumentToString = props =>
   `<!doctype html>${renderToString(<HTML {...props} />)}`
 
 export default function (props) {
-  cxs.reset()
   return renderDocumentToString(props.htmlWebpackPlugin)
 }

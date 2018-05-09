@@ -1,18 +1,42 @@
-const log = require('../util/logger').default
-const app = require('./app').default
+const http = require('http')
+const Koa = require('koa')
+const log = require('../util/logger')
+const api = require('./api')
+const www = require('./app')
 
-const port = process.env.PORT || 8000
+const app = new Koa()
 
 function fancyExit (options, err, exit) {
-  log('server', 'goodbye!')
-  if (err) log('server', err.stack)
+  console.log('server', 'goodbye!')
+  if (err) console.log('server', err.stack)
   setTimeout(() => process.exit(), 500)
 }
 
-process.on('exit', () => process.exit())
-process.on('SIGINT', fancyExit)
-process.on('uncaughtException', fancyExit.bind(null, { stack: true }))
+const server = http.createServer(app.callback())
+  .listen(process.env.HTTP_PORT, () => {
+    console.info('Server is available at %s%s:%d',
+      process.env.HTTP_PROTOCOL,
+      process.env.HTTP_HOST,
+      process.env.HTTP_PORT
+    )
+  }).on('close', () => {
+    log.info('Server shutdown.')
+  }).on('error', (err) => {
+    log.error(err.message)
+    process.exit(1)
+  })
 
-log('server', `started: http://localhost:${port}`)
+process.on('SIGINT', () => {
+  server.close(() => {
+    process.exit(0)
+  })
+}).on('exit', () => {
+  process.exit()
+}).on('unhandledRejection', (err) => {
+  server.emit('error', err)
+}).on('uncaughtException', (err) => {
+  server.emit('error', err)
+})
 
-app.listen(port)
+api(app)
+www(app)
